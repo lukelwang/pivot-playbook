@@ -96,6 +96,8 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 .book figure .meta{display:flex;flex-wrap:wrap;gap:6px}
 .book .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:10px}
 .book .lbl{font-size:12px;color:var(--muted);margin:0 0 2px}
+.panel{min-width:0;overflow-x:auto}
+@media (max-width:640px){.chip{white-space:normal}td:first-child{white-space:normal}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -103,15 +105,14 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 
 <div class="wrap">
 <header>
-  <div class="eyebrow">Playbook · Sep 27, 2026 · Leaders only, RS top 5%</div>
+  <div class="eyebrow">Playbook · updated Sep 29, 2026 · Leaders only, RS top 5%</div>
   <h1>30 Minute Pivot Playbook</h1>
   <p class="lede">Strong stocks pull back to the 21 EMA, shake out intraday, and we buy the break of the first strong green bar. The stop is fixed. Sell half once the close is 3 ATR above the 21 EMA, and trail the rest with the 10 EMA. "Rules explained" uses constructed textbook bars to show each case clearly. "Model book" shows real historical trades so you can see how the rules look in real price action.</p>
   <div class="status">
-    <span class="chip go">Leaders +0.53R per trade</span>
-    <span class="chip go">Without wide stops +0.68R</span>
-    <span class="chip go">Also without shallow pullbacks +0.94R, 35% win rate</span>
-    <span class="chip info">28% win rate (no depth filter)</span>
-    <span class="chip info">Average hold 3.6 days</span>
+    <span class="chip go">Leaders +0.66R per trade (184 trades)</span>
+    <span class="chip info">30% win rate</span>
+    <span class="chip info">Average hold 3.5 days</span>
+    <span class="chip info">Risk per trade: deep 0.2%, medium 0.1%</span>
     <span class="chip wn">Candidate strategy. Holdout test around October, forward test around April 2027</span>
   </div>
   <div class="rules" id="rules"></div>
@@ -130,16 +131,16 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
     <li>Universe is <strong>leaders only, RS top 5%</strong>. Close &gt; 50 day MA &gt; 200 day MA, 200 day MA rising, within 10% of the 52 week high.</li>
     <li>Keep only names whose prior close is no more than 0.7 daily ATR above the 21 EMA.</li>
     <li>Note four numbers for each name. The prior day low, the weekly 8 EMA, ADR20 (average daily range over the last 20 days, in percent), and the daily ATR (used for pullback depth, also shown in the indicator tooltip).</li>
-    <li>Check the account. How much room is left under the 3% total open risk cap, and whether the account is down 8% from its peak (if so, halve all risk).</li>
+    <li>Check the account. How much room is left under the 3% total open risk cap, how much buying power is left, and whether the account is down 8% from its peak (if so, halve all risk).</li>
   </ol></div>
   <div class="panel"><h3>During the session (30 minute chart)</h3><ol class="plain">
     <li>Wait for 3 or more red bars in a row. They can start anywhere, including overnight.</li>
     <li>The first green bar that closes in its upper third is the pivot. If it closes in the middle, wait up to 2 more bars.</li>
-    <li><strong>Size by pullback depth</strong>, measured from the high of the first red bar to the lowest red bar low, in daily ATR. At 0.7 or more risk 0.4% per trade (indicator shows P+). From 0.4 to 0.7 risk 0.2% (P). <strong>Under 0.4, skip it</strong>.</li>
+    <li><strong>Size by pullback depth</strong>, measured from the high of the first red bar to the lowest red bar low, in daily ATR. At 0.7 or more risk 0.2% per trade (indicator shows P+). From 0.4 to 0.7 risk 0.1% (P). <strong>Under 0.4, skip it</strong>.</li>
     <li>Place a buy stop at the pivot high + 1 tick, with the stop at the pattern low minus 1 tick. Shares = risk amount ÷ risk per share.</li>
     <li><strong>If the stop distance (as a percent of price) is 60% of ADR20 or more, pass on the pivot.</strong></li>
     <li>Cancel the order if price breaks the pattern low before a fill. The order stays live until the next day's close (if it fills on a gap at the next open, recompute shares at the actual fill).</li>
-    <li>When risk is maxed out, deep pullbacks (0.4%) come first, and within the same tier the higher RS name wins (rare once you trade leaders only).</li>
+    <li>When there is no room (3% total risk, or not enough buying power), deep pullbacks (0.2%) come first, and within the same tier the higher RS name wins. At 0.2% per trade the 3% cap is rarely hit; in a cash account buying power runs out first.</li>
   </ol></div>
   <div class="panel"><h3>After the close</h3><ol class="plain">
     <li>The stop order stays in place and never moves.</li>
@@ -154,8 +155,8 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <div class="two">
   <div class="panel"><h3>Chart markers</h3><table><tbody>
     <tr><td class="num">?</td><td>The live intraday bar is about to become a pivot (green and closing high). It may disappear before the bar closes</td></tr>
-    <tr><td class="num">P+</td><td>Confirmed pivot, deep pullback (≥ 0.7 ATR), risk 0.4% per trade (green text)</td></tr>
-    <tr><td class="num">P</td><td>Confirmed pivot, medium pullback (0.4 to 0.7 ATR), risk 0.2% per trade (teal text)</td></tr>
+    <tr><td class="num">P+</td><td>Confirmed pivot, deep pullback (≥ 0.7 ATR), risk 0.2% per trade (green text)</td></tr>
+    <tr><td class="num">P</td><td>Confirmed pivot, medium pullback (0.4 to 0.7 ATR), risk 0.1% per trade (teal text)</td></tr>
     <tr><td class="num">(P)</td><td>A pivot that failed a daily condition in strict mode. Gray, no order placed. The tooltip names the condition that failed. Can be hidden in the settings</td></tr>
     <tr><td class="num">p</td><td>Shallow pullback (under 0.4 ATR), hidden by default. Turn off hiding in the settings to show it as a gray p</td></tr>
     <tr><td class="num">Thin red line</td><td>Stop price, drawn from the pattern low bar until a fill, cancel, or order expiry</td></tr>
@@ -166,6 +167,7 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
   </tbody></table></div>
   <div class="panel"><h3>How to use it</h3><ul class="plain">
     <li>Hover over a P to see the number of red bars, trigger, stop, 1R as a percent of price and of ADR20, distance from the 21 EMA in ATR, pullback depth and suggested size, bonus factors (for reference only), and whether the daily conditions PASS or FAIL that day.</li>
+    <li>The indicator tooltip still suggests the sizes used before Sep 29 (0.4% and 0.2%). Until the indicator is updated, this page decides: deep 0.2%, medium 0.1%.</li>
     <li>The "Size by pullback depth" setting is on by default. Turn it off to go back to the old bonus tiers, where P+ means a bonus factor is present (0.4%) and P means none (0.1%).</li>
     <li>Pivots with a stop at 60% of ADR20 or more are hidden by default (you can turn that off to show them as a gray P wide).</li>
     <li>The moving average filter (off by default) lets you check 21EMA, weekly 8EMA, 8EMA and 5EMA. Only pivots whose pattern low tags a checked average (within 0.25 ATR or below it) are shown. Checking several works as "or", so more checks means looser. In the backtest only 21EMA alone made a difference, +0.32R per trade when tagged versus negative 0.37R when not (found after the fact, pending holdout data).</li>
@@ -188,16 +190,16 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <div class="grid" id="g-entry"></div>
 <div class="panel" style="margin-top:18px">
   <h3>Does the shape of the red bars matter? Only depth does</h3>
-  <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">Depth is the drop from the high of the first red bar to the lowest low of all the red bars (excluding wait bars and the pivot bar), measured in daily ATR. For example, with a daily ATR of 2 dollars, a first red bar high of 100 and a red bar low of 98.40, depth is 0.8, a deep pullback. It can be computed at the close of the P bar. Sample is 21 EMA pullbacks with stops under 60% ADR, using this strategy's exits.</p>
+  <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">Depth is the drop from the high of the first red bar to the lowest low of all the red bars (excluding wait bars and the pivot bar), measured in daily ATR. For example, with a daily ATR of 2 dollars, a first red bar high of 100 and a red bar low of 98.40, depth is 0.8, a deep pullback. It can be computed at the close of the P bar. Sample is 21 EMA pullbacks with stops under 60% ADR, using this strategy's exits, recomputed on Sep 29 on the current sample with overlapping pivots of one stock counted separately (so the counts are higher than in the statistics tab).</p>
   <div class="scroll"><table>
     <thead><tr><th>Depth</th><th>Leaders trades</th><th>Leaders win rate</th><th>Leaders per trade</th><th>RS top 20% win rate</th><th>RS top 20% per trade</th><th>Size</th></tr></thead>
     <tbody>
-      <tr><td>Shallow, under 0.4 ATR</td><td class="num">55</td><td class="num">15%</td><td class="num">+0.05R</td><td class="num">19%</td><td class="num">−0.05R</td><td>Skip</td></tr>
-      <tr><td>Medium, 0.4 to 0.7</td><td class="num">66</td><td class="num">27%</td><td class="num">+0.84R</td><td class="num">23%</td><td class="num">+0.14R</td><td>0.2%</td></tr>
-      <tr><td>Deep, 0.7 or more</td><td class="num">65</td><td class="num">43%</td><td class="num">+1.05R</td><td class="num">33%</td><td class="num">+0.56R</td><td>0.4%</td></tr>
+      <tr><td>Shallow, under 0.4 ATR</td><td class="num">94</td><td class="num">15%</td><td class="num">−0.30R</td><td class="num">16%</td><td class="num">−0.28R</td><td>Skip</td></tr>
+      <tr><td>Medium, 0.4 to 0.7</td><td class="num">102</td><td class="num">26%</td><td class="num">+0.80R</td><td class="num">20%</td><td class="num">+0.03R</td><td>0.1%</td></tr>
+      <tr><td>Deep, 0.7 or more</td><td class="num">96</td><td class="num">35%</td><td class="num">+0.44R</td><td class="num">28%</td><td class="num">+0.32R</td><td>0.2%</td></tr>
     </tbody>
   </table></div>
-  <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The deep tier made money in all three periods, and it holds up whether you look only at trades with a bonus factor or only at those that tagged the 21 EMA. In the capacity simulation, sizing by depth versus the old bonus tiers gave a median annual return of 59 versus 55 and a median max drawdown of 14% versus 20%. The cost is that shallow pullbacks have big winners too (CEG +20.9R, STX +15.7R, CAMT +11.9R), yet the whole tier of 55 trades adds up to only about +3R. No stable difference showed up for whether each red bar is lower than the last, how much red bars overlap, bar count, growing or shrinking bodies, or whether the moving average slope is up or down. The 0.4 and 0.7 cutoffs were chosen after seeing the data and await the holdout test (ADR 0006 H7).</p>
+  <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The shallow tier loses money as a whole (negative 0.30R per trade for leaders, negative 0.28R for the RS top 20%), so it is skipped; it has big winners too (CEG +20.9R, STX +15.7R, CAMT +11.9R), but the tier adds up to a loss. Deep pullbacks win most often, yet among leaders the medium tier makes more R per trade (+0.80R versus +0.44R), and deep leader trades were negative in the first development half; in the RS top 20% the deep tier is still the best (+0.32R versus +0.03R). The tiered sizing stays: in the account simulation with daily marks, equal sizing for both tiers did not do better. No stable difference showed up for whether each red bar is lower than the last, how much red bars overlap, bar count, growing or shrinking bodies, or whether the moving average slope is up or down. The 0.4 and 0.7 cutoffs were chosen after seeing the data and await the holdout test (ADR 0006 H7).</p>
 </div>
 
 <h3 class="sub" style="margin:28px 0 6px">Any red bar counts</h3>
@@ -219,45 +221,63 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <div class="panel" style="margin-top:18px" id="bonus-table"></div>
 
 <h2>Step 4. Position size</h2>
-<p class="sec-intro">On a deep pullback a 1R loss equals 0.4% of the account, on a medium pullback 0.2%, and shallow pullbacks are skipped. Total open risk stays at or under 3%. After an 8% drawdown from the account peak, all risk per trade is halved until a new high. The total risk cap and the drawdown halving are judgment calls and were not backtested.</p>
+<p class="sec-intro">On a deep pullback a 1R loss equals 0.2% of the account, on a medium pullback 0.1%, and shallow pullbacks are skipped (cut on Sep 29 from 0.4% and 0.2%). Total open risk stays at or under 3%. After an 8% drawdown from the account peak, all risk per trade is halved until a new high. The 0.2% comes from a stated rule: allowing for the error in the expectancy itself, the chance of a maximum drawdown above 18% must be at most 10%, and the base risk is the largest value that meets it (table below).</p>
 <div class="two">
   <div class="panel">
     <h3>Working out the share count</h3>
     <dl class="calc num" id="calc"></dl>
-    <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">With a tight stop the computed position value can get very large. In practice you can cap the position value per trade, say at 25% of the account, and buy at the cap when the calculation exceeds it. Actual risk is then below the planned 0.4% or 0.2%. This is a practical tip and is not part of the backtest.</p>
+    <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">With a tight stop the computed position value can get very large. In practice you can cap the position value per trade, say at 25% of the account, and buy at the cap when the calculation exceeds it. Actual risk is then below the planned 0.2% or 0.1%. At 0.2% per trade the median deep pullback position is about 15% of the account. This is a practical tip and is not part of the backtest.</p>
   </div>
   <figure>
-    <div class="fh"><h3>Cutting size in a drawdown</h3><span class="chip wn">Judgment rule</span></div>
+    <div class="fh"><h3>Cutting size in a drawdown</h3><span class="chip info">Simulated</span></div>
     <div class="scroll"><svg class="ch" id="dd" viewBox="0 0 680 260" role="img" aria-label="Account equity and risk tier illustration"></svg></div>
-    <figcaption>Once equity is 8% below its peak, all risk per trade is halved (0.4% becomes 0.2%, 0.2% becomes 0.1%). Size returns to normal once equity gets back to the prior peak. This is an illustrative curve, not a backtest result.</figcaption>
+    <figcaption>Once equity is 8% below its peak, all risk per trade is halved (0.2% becomes 0.1%, 0.1% becomes 0.05%). Size returns to normal once equity gets back to the prior peak. This is an illustrative curve, not a backtest result. In the account simulation with daily marks (0.4% per trade, cash account), the rule barely changed growth (median 43% versus 42% a year) and cut the 90th percentile drawdown from 23% to 17%.</figcaption>
   </figure>
+</div>
+
+<div class="panel" style="margin-top:18px">
+  <h3>How the base risk was set</h3>
+  <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">Rule: the chance of a maximum drawdown above 18% is at most 10%. Each run first resamples the leader trades in whole calendar months to draw an expectancy (median +0.65R, 10th percentile +0.23R), then simulates a full market account at that expectancy: 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown, leaders only, every fill taken in time order while there is room (about 430 a year), positions marked to market daily. 1,000 runs per base risk.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Base risk (deep, medium half)</th><th>Median yearly growth</th><th>Growth, 10th percentile</th><th>Max drawdown, 90th percentile</th><th>Chance of a drawdown above 18%</th></tr></thead>
+    <tbody>
+      <tr><td>0.10%</td><td class="num">24%</td><td class="num">5%</td><td class="num">10%</td><td class="num">0.1%</td></tr>
+      <tr><td>0.15%</td><td class="num">35%</td><td class="num">7%</td><td class="num">14%</td><td class="num">1.6%</td></tr>
+      <tr><td><strong>0.20% (current)</strong></td><td class="num">43%</td><td class="num">10%</td><td class="num">16%</td><td class="num">6.7%</td></tr>
+      <tr><td>0.25%</td><td class="num">50%</td><td class="num">11%</td><td class="num">19%</td><td class="num">12.6%</td></tr>
+      <tr><td>0.30%</td><td class="num">57%</td><td class="num">13%</td><td class="num">21%</td><td class="num">20.4%</td></tr>
+      <tr><td>0.40% (before)</td><td class="num">63%</td><td class="num">10%</td><td class="num">25%</td><td class="num">37.0%</td></tr>
+      <tr><td>0.50%</td><td class="num">68%</td><td class="num">9%</td><td class="num">29%</td><td class="num">50.5%</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The largest base risk that meets the rule is 0.2%. Up to 0.3% the bad case (10th percentile growth) still improves a little (10% to 13%), but the chance of a drawdown above 18% rises to about 20%; above 0.3% the bad case gets worse and only the drawdown grows. 18% is the drawdown tolerance this playbook uses; with your own number, read your row off the table. Limits: the rules were picked after seeing the data, and that bias is not in the resampling, so 0.2% is an upper bound; every run shares one 2.5 year market history; margin interest is not charged (about 0.5 to 1 point a year). In a cash account (no leverage), at the in sample expectancy, 0.2% gives about 36% median yearly growth, and about 21% of fills do not fit for lack of buying power. After the holdout test H1 reports, the same rule is rerun.</p>
 </div>
 
 <h2>Numbers and discipline</h2>
 <div class="two">
   <div class="panel">
-    <h3>Historical results (21 EMA pullbacks, leaders RS top 5%; the first rows are the original rules with no depth filter)</h3>
+    <h3>Historical results (leaders RS top 5%, all current rules, one position at a time per stock)</h3>
     <table>
       <tbody>
-        <tr><td>Expectancy per trade</td><td class="num">+0.53R (206 trades, 90% interval +0.05 to +1.02)</td></tr>
-        <tr><td>Without stops ≥ 60% ADR</td><td class="num">+0.68R (186 trades, interval +0.15 to +1.24)</td></tr>
-        <tr><td><strong>Current rules, also without shallow pullbacks</strong></td><td class="num">+0.94R (131 trades, interval +0.30 to +1.65), 35% win rate</td></tr>
-        <tr><td>By period</td><td class="num">Development first half +0.68R · Development second half +0.73R · Mar to Sep 2026 +0.26R</td></tr>
-        <tr><td>Random entry, same conditions</td><td class="num">−0.12R</td></tr>
-        <tr><td>Win rate / average hold</td><td class="num">28% / 3.6 days</td></tr>
-        <tr><td>Without the best 1% of trades</td><td class="num">+0.18R</td></tr>
-        <tr><td>Opportunities</td><td class="num">About 520 a year market wide, about 7.5 open at once on average</td></tr>
-        <tr><td>Comparison, RS top 20%</td><td class="num">+0.18R (1,569 trades), deep pullbacks +0.56R</td></tr>
+        <tr><td>Expectancy per trade</td><td class="num">+0.66R (184 trades, 90% interval +0.15 to +1.22)</td></tr>
+        <tr><td>By period</td><td class="num">Development first half +0.35R · Development second half +1.24R · Mar to Sep 2026 +0.54R</td></tr>
+        <tr><td>Win rate / average hold</td><td class="num">30% / 3.5 days (winners 7.2, losers 1.9)</td></tr>
+        <tr><td>Median trade</td><td class="num">−1.01R, 64% of trades are full stop outs</td></tr>
+        <tr><td>Share of total R from the best 5 trades</td><td class="num">89%</td></tr>
+        <tr><td>Without the best 1% of trades</td><td class="num">+0.38R</td></tr>
+        <tr><td>Random entry, same conditions</td><td class="num">−0.23R (random entry control on the same leader pivots, 207 trades, overlapping pivots counted separately)</td></tr>
+        <tr><td>Opportunities</td><td class="num">About 450 fills a year market wide, about 1.8 a session</td></tr>
+        <tr><td>Comparison, RS top 20%</td><td class="num">+0.20R (1,286 trades, 90% interval +0.03 to +0.38)</td></tr>
       </tbody>
     </table>
-    <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">All of these rules were picked after seeing the data, so the numbers lean optimistic. 4,696 unused stock months are downloading now, and a holdout test will run once they finish (ADR 0006).</p>
+    <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">Updated Sep 29: the sample now holds one position at a time per stock under the current exit. The Sep 27 version removed overlaps with the old 10 session hold and kept 131 trades at +0.94R; the same data now gives 184 trades at +0.66R. All of these rules were picked after seeing the data, so the numbers lean optimistic. 4,696 unused stock months are downloading now, finishing around Oct 3, and a holdout test runs once they finish (ADR 0006).</p>
   </div>
   <div class="panel">
     <h3>Discipline</h3>
     <ul class="plain">
       <li><strong>When there is room, take every signal that fits the rules. Do not pick.</strong> Profits come from a few big winners, and missing one can wipe out a year.</li>
-      <li><strong>When risk is maxed out (3% total), follow the priority.</strong> Deep pullbacks first, and within the same tier the higher RS name. With leaders only there are about 520 signals a year market wide and about 7.5 open at once on average, so the 3% cap is rarely hit.</li>
-      <li><strong>Leaders only (RS top 5%).</strong> Historically leaders made about 0.4R more per trade than other names, in the same direction in all three periods, but the interval spans zero (negative 0.10 to +0.94). Win rates are the same (about 28%). The whole difference is in the big winners, so leader signals are the ones you can least afford to miss. Days with no position are normal. Do not trade names outside the RS top 5% just to have something to do.</li>
+      <li><strong>When there is no room, follow the priority.</strong> Deep pullbacks first, and within the same tier the higher RS name. With leaders only there are about 450 fills a year market wide; at 0.2% per trade the 3% risk cap is rarely hit, and in a cash account buying power runs out first.</li>
+      <li><strong>Leaders only (RS top 5%).</strong> Leaders made about 0.53R more per trade than other names (90% interval 0.00 to +1.13), but not in every period: in the first development half the other names did better. Most of the difference is in the big winners, so leader signals are the ones you can least afford to miss. Days with no position are normal. Do not trade names outside the RS top 5% just to have something to do.</li>
       <li>At 150 live trades, if the average is below negative 0.3R per trade, stop and review.</li>
       <li>Do not trade 1 or 2 red bar pivots, fixed price targets, a 21 EMA trailing stop, order flow bubbles, or market index on/off switches.</li>
       <li>Do not switch to selling at the close of the day it breaks the 10 EMA, and do not swap in the 10 day SMA. Both did worse than the current rule (about 0.05R and 0.03R less per trade). After a strong stock closes below the 10 EMA, the next open is on average a better sale than the prior close.</li>
@@ -274,57 +294,59 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <div id="tab-stats" hidden>
 <style>#tab-stats *{box-sizing:border-box} #tab-stats .panel{max-width:100%;min-width:0} #tab-stats .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin:14px 0}</style>
 <h2>Statistics</h2>
-<p class="sec-intro">Every trade that fits the current rules in the historical sample, Mar 25, 2024 to Sep 9, 2026, from IBKR 1 minute data. Results are in R, where 1R is the distance from the buy stop to the protective stop. Leaders means RS top 5%, the universe the strategy trades. The RS top 20% column uses the same rules with a wider universe, for comparison.</p>
+<p class="sec-intro">Every trade that fits the current rules in the historical sample, Mar 25, 2024 to Sep 9, 2026, from IBKR 1 minute data, one position at a time per stock. Updated Sep 29: the Sep 27 version removed overlapping trades with the old 10 session hold (131 leader trades, +0.94R per trade); under the current exit the same data gives 184 trades. Results are in R, where 1R is the distance from the buy stop to the protective stop. Leaders means RS top 5%, the universe the strategy trades. The RS top 20% column uses the same rules with a wider universe, for comparison.</p>
 <div class="tiles">
-<div class="panel"><p class="lbl" style="margin:0">Win rate</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">35.1%</p><p style="margin:0;font-size:12.5px;color:var(--muted)">46 of 131 trades</p></div><div class="panel"><p class="lbl" style="margin:0">Reward to risk</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">4.38</p><p style="margin:0;font-size:12.5px;color:var(--muted)">average win +4.65R, average loss −1.06R</p></div><div class="panel"><p class="lbl" style="margin:0">Expectancy</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">+0.94R</p><p style="margin:0;font-size:12.5px;color:var(--muted)">90% interval +0.31 to +1.68R</p></div><div class="panel"><p class="lbl" style="margin:0">Profit factor</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">2.37</p><p style="margin:0;font-size:12.5px;color:var(--muted)">gross R won over gross R lost</p></div>
+<div class="panel"><p class="lbl" style="margin:0">Win rate</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">30.4%</p><p style="margin:0;font-size:12.5px;color:var(--muted)">56 of 184 trades</p></div><div class="panel"><p class="lbl" style="margin:0">Reward to risk</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">4.31</p><p style="margin:0;font-size:12.5px;color:var(--muted)">average win +4.58R, average loss −1.06R</p></div><div class="panel"><p class="lbl" style="margin:0">Expectancy</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">+0.66R</p><p style="margin:0;font-size:12.5px;color:var(--muted)">90% interval +0.15 to +1.22R</p></div><div class="panel"><p class="lbl" style="margin:0">Profit factor</p><p style="margin:4px 0 2px;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)">1.89</p><p style="margin:0;font-size:12.5px;color:var(--muted)">gross R won over gross R lost</p></div>
 </div>
 <div class="panel"><h3>Per trade statistics</h3><div class="scroll"><table><thead><tr><th></th><th class="num">Leaders (current rules)</th><th class="num">RS top 20%, same rules</th></tr></thead><tbody>
-<tr><td>Trades</td><td class="num">131</td><td class="num">936</td></tr>
-<tr><td>Win rate</td><td class="num">35.1%</td><td class="num">27.6%</td></tr>
-<tr><td>Average win</td><td class="num">+4.65R</td><td class="num">+4.25R</td></tr>
-<tr><td>Average loss</td><td class="num">−1.06R</td><td class="num">−1.16R</td></tr>
-<tr><td>Reward to risk (average win over average loss)</td><td class="num">4.38</td><td class="num">3.67</td></tr>
-<tr><td>Profit factor</td><td class="num">2.37</td><td class="num">1.40</td></tr>
-<tr><td>Expectancy per trade</td><td class="num">+0.94R</td><td class="num">+0.33R</td></tr>
-<tr><td>90% interval (symbol week bootstrap)</td><td class="num">+0.31 to +1.68R</td><td class="num">+0.12 to +0.56R</td></tr>
+<tr><td>Trades</td><td class="num">184</td><td class="num">1,286</td></tr>
+<tr><td>Win rate</td><td class="num">30.4%</td><td class="num">24.3%</td></tr>
+<tr><td>Average win</td><td class="num">+4.58R</td><td class="num">+4.40R</td></tr>
+<tr><td>Average loss</td><td class="num">−1.06R</td><td class="num">−1.14R</td></tr>
+<tr><td>Reward to risk (average win over average loss)</td><td class="num">4.31</td><td class="num">3.85</td></tr>
+<tr><td>Profit factor</td><td class="num">1.89</td><td class="num">1.23</td></tr>
+<tr><td>Expectancy per trade</td><td class="num">+0.66R</td><td class="num">+0.20R</td></tr>
+<tr><td>90% interval (symbol week bootstrap)</td><td class="num">+0.15 to +1.22R</td><td class="num">+0.03 to +0.38R</td></tr>
 <tr><td>Median trade</td><td class="num">−1.01R</td><td class="num">−1.02R</td></tr>
-<tr><td>Total</td><td class="num">+123.8R</td><td class="num">+311.7R</td></tr>
+<tr><td>Total</td><td class="num">+120.7R</td><td class="num">+260.4R</td></tr>
 <tr><td>Best trade</td><td class="num">+25.7R</td><td class="num">+37.4R</td></tr>
-<tr><td>Trades reaching 1R / 2R / 3R</td><td class="num">27% / 20% / 12%</td><td class="num">21% / 16% / 10%</td></tr>
-<tr><td>Trades reaching 5R / 10R</td><td class="num">9.2% / 3.1%</td><td class="num">6.2% / 2.7%</td></tr>
-<tr><td>Full stop outs (loss of about 1R)</td><td class="num">60%</td><td class="num">68%</td></tr>
-<tr><td>Longest losing streak</td><td class="num">12 trades</td><td class="num">26 trades</td></tr>
-<tr><td>Expectancy without the best 1% of trades</td><td class="num">+0.75R</td><td class="num">+0.05R</td></tr>
-<tr><td>Share of total R from the best 5 trades</td><td class="num">85%</td><td class="num">53%</td></tr>
-<tr><td>Average hold, winners / losers</td><td class="num">6.6 / 1.9 days</td><td class="num">6.8 / 1.9 days</td></tr>
+<tr><td>Trades reaching 1R / 2R / 3R</td><td class="num">23% / 16% / 11%</td><td class="num">19% / 14% / 9%</td></tr>
+<tr><td>Trades reaching 5R / 10R</td><td class="num">8.7% / 3.3%</td><td class="num">5.8% / 2.7%</td></tr>
+<tr><td>Full stop outs (loss of about 1R)</td><td class="num">64%</td><td class="num">71%</td></tr>
+<tr><td>Longest losing streak</td><td class="num">15 trades</td><td class="num">26 trades</td></tr>
+<tr><td>Expectancy without the best 1% of trades</td><td class="num">+0.38R</td><td class="num">−0.08R</td></tr>
+<tr><td>Share of total R from the best 5 trades</td><td class="num">89%</td><td class="num">63%</td></tr>
+<tr><td>Average hold, winners / losers</td><td class="num">7.2 / 1.9 days</td><td class="num">7.3 / 1.9 days</td></tr>
 </tbody></table></div>
 <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">A low win rate is expected. The median trade is a stop out of about 1R; the edge comes from a small number of large winners that the 10 EMA trail lets run. Average losses slightly exceed 1R because of gaps through the stop and slippage.</p></div>
-<div class="panel" style="margin-top:14px"><h3>How the results are distributed</h3><div class="scroll"><svg viewBox="0 0 640 230" width="640" height="230" role="img" aria-label="Distribution of trade results in R"><line x1="34" y1="186" x2="636" y2="186" stroke="var(--line)"></line><rect x="40.0" y="16.0" width="62.5" height="170.0" fill="var(--down)" rx="2"></rect><text x="71.2" y="11.0" text-anchor="middle" class="ax" fill="var(--ink)">80</text><text x="71.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">≤ −0.5R</text><rect x="114.5" y="175.4" width="62.5" height="10.6" fill="var(--down)" rx="2"></rect><text x="145.8" y="170.4" text-anchor="middle" class="ax" fill="var(--ink)">5</text><text x="145.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">−0.5 to 0</text><rect x="189.0" y="162.6" width="62.5" height="23.4" fill="var(--up)" rx="2"></rect><text x="220.2" y="157.6" text-anchor="middle" class="ax" fill="var(--ink)">11</text><text x="220.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">0 to 1R</text><rect x="263.5" y="166.9" width="62.5" height="19.1" fill="var(--up)" rx="2"></rect><text x="294.8" y="161.9" text-anchor="middle" class="ax" fill="var(--ink)">9</text><text x="294.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">1 to 2R</text><rect x="338.0" y="164.8" width="62.5" height="21.2" fill="var(--up)" rx="2"></rect><text x="369.2" y="159.8" text-anchor="middle" class="ax" fill="var(--ink)">10</text><text x="369.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">2 to 3R</text><rect x="412.5" y="177.5" width="62.5" height="8.5" fill="var(--up)" rx="2"></rect><text x="443.8" y="172.5" text-anchor="middle" class="ax" fill="var(--ink)">4</text><text x="443.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">3 to 5R</text><rect x="487.0" y="169.0" width="62.5" height="17.0" fill="var(--up)" rx="2"></rect><text x="518.2" y="164.0" text-anchor="middle" class="ax" fill="var(--ink)">8</text><text x="518.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">5 to 10R</text><rect x="561.5" y="177.5" width="62.5" height="8.5" fill="var(--up)" rx="2"></rect><text x="592.8" y="172.5" text-anchor="middle" class="ax" fill="var(--ink)">4</text><text x="592.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">10R or more</text><text x="34" y="222" class="ax" fill="var(--muted)">Trade result, leaders, 131 trades</text></svg></div>
-<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">80 of 131 leader trades lose about a full R. The 12 trades that make 5R or more carry most of the total.</p></div>
+<div class="panel" style="margin-top:14px"><h3>How the results are distributed</h3><div class="scroll"><svg viewBox="0 0 640 230" width="640" height="230" role="img" aria-label="Distribution of trade results in R"><line x1="34" y1="186" x2="636" y2="186" stroke="var(--line)"></line><rect x="40.0" y="16.0" width="62.5" height="170.0" fill="var(--down)" rx="2"></rect><text x="71.2" y="11.0" text-anchor="middle" class="ax" fill="var(--ink)">121</text><text x="71.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">≤ −0.5R</text><rect x="114.5" y="177.6" width="62.5" height="8.4" fill="var(--down)" rx="2"></rect><text x="145.8" y="172.6" text-anchor="middle" class="ax" fill="var(--ink)">6</text><text x="145.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">−0.5 to 0</text><rect x="189.0" y="166.3" width="62.5" height="19.7" fill="var(--up)" rx="2"></rect><text x="220.2" y="161.3" text-anchor="middle" class="ax" fill="var(--ink)">14</text><text x="220.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">0 to 1R</text><rect x="263.5" y="166.3" width="62.5" height="19.7" fill="var(--up)" rx="2"></rect><text x="294.8" y="161.3" text-anchor="middle" class="ax" fill="var(--ink)">14</text><text x="294.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">1 to 2R</text><rect x="338.0" y="174.8" width="62.5" height="11.2" fill="var(--up)" rx="2"></rect><text x="369.2" y="169.8" text-anchor="middle" class="ax" fill="var(--ink)">8</text><text x="369.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">2 to 3R</text><rect x="412.5" y="179.0" width="62.5" height="7.0" fill="var(--up)" rx="2"></rect><text x="443.8" y="174.0" text-anchor="middle" class="ax" fill="var(--ink)">5</text><text x="443.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">3 to 5R</text><rect x="487.0" y="172.0" width="62.5" height="14.0" fill="var(--up)" rx="2"></rect><text x="518.2" y="167.0" text-anchor="middle" class="ax" fill="var(--ink)">10</text><text x="518.2" y="202" text-anchor="middle" class="ax" fill="var(--muted)">5 to 10R</text><rect x="561.5" y="177.6" width="62.5" height="8.4" fill="var(--up)" rx="2"></rect><text x="592.8" y="172.6" text-anchor="middle" class="ax" fill="var(--ink)">6</text><text x="592.8" y="202" text-anchor="middle" class="ax" fill="var(--muted)">10R or more</text><text x="34" y="222" class="ax" fill="var(--muted)">Trade result, leaders, 184 trades</text></svg></div>
+<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">121 of 184 leader trades lose about a full R. The 16 trades that make 5R or more carry most of the total.</p></div>
 <div style="display:grid;gap:14px;margin-top:14px">
-<div class="panel"><h3>Leaders by pullback depth</h3><div class="scroll"><table><thead><tr><th></th><th class="num">Trades</th><th class="num">Win rate</th><th class="num">Reward to risk</th><th class="num">Profit factor</th><th class="num">Expectancy</th></tr></thead><tbody><tr><td>Mid, 0.4 to 0.7 ATR (0.2% risk)</td><td class="num">66</td><td class="num">27%</td><td class="num">5.42</td><td class="num">2.03</td><td class="num">+0.84R</td></tr>
-<tr><td>Deep, 0.7 ATR or more (0.4% risk)</td><td class="num">65</td><td class="num">43%</td><td class="num">3.79</td><td class="num">2.87</td><td class="num">+1.05R</td></tr></tbody></table></div></div>
-<div class="panel"><h3>Leaders by period</h3><div class="scroll"><table><thead><tr><th></th><th class="num">Trades</th><th class="num">Win rate</th><th class="num">Reward to risk</th><th class="num">Profit factor</th><th class="num">Expectancy</th></tr></thead><tbody><tr><td>Development, first half</td><td class="num">46</td><td class="num">37%</td><td class="num">4.46</td><td class="num">2.61</td><td class="num">+1.05R</td></tr>
-<tr><td>Development, second half</td><td class="num">30</td><td class="num">47%</td><td class="num">3.35</td><td class="num">2.94</td><td class="num">+1.08R</td></tr>
-<tr><td>Locked, Mar to Sep 2026</td><td class="num">55</td><td class="num">27%</td><td class="num">5.29</td><td class="num">1.98</td><td class="num">+0.78R</td></tr></tbody></table></div></div>
+<div class="panel"><h3>Leaders by pullback depth</h3><div class="scroll"><table><thead><tr><th></th><th class="num">Trades</th><th class="num">Win rate</th><th class="num">Reward to risk</th><th class="num">Profit factor</th><th class="num">Expectancy</th></tr></thead><tbody><tr><td>Mid, 0.4 to 0.7 ATR (0.1% risk)</td><td class="num">91</td><td class="num">24%</td><td class="num">6.18</td><td class="num">1.97</td><td class="num">+0.82R</td></tr>
+<tr><td>Deep, 0.7 ATR or more (0.2% risk)</td><td class="num">93</td><td class="num">37%</td><td class="num">3.09</td><td class="num">1.78</td><td class="num">+0.49R</td></tr></tbody></table></div></div>
+<div class="panel"><h3>Leaders by period</h3><div class="scroll"><table><thead><tr><th></th><th class="num">Trades</th><th class="num">Win rate</th><th class="num">Reward to risk</th><th class="num">Profit factor</th><th class="num">Expectancy</th></tr></thead><tbody><tr><td>Development, first half</td><td class="num">66</td><td class="num">29%</td><td class="num">3.63</td><td class="num">1.47</td><td class="num">+0.35R</td></tr>
+<tr><td>Development, second half</td><td class="num">48</td><td class="num">44%</td><td class="num">4.03</td><td class="num">3.13</td><td class="num">+1.24R</td></tr>
+<tr><td>Locked, Mar to Sep 2026</td><td class="num">70</td><td class="num">23%</td><td class="num">5.56</td><td class="num">1.65</td><td class="num">+0.54R</td></tr></tbody></table></div></div>
 </div>
-<div class="panel" style="margin-top:14px"><h3>Portfolio simulation (provisional)</h3>
-<p style="margin:0 0 8px">Leaders across the full market, 3% cap on total open risk, risk halved after an 8% drawdown, 200 runs.</p>
+<div class="panel" style="margin-top:14px"><h3>Portfolio simulation</h3>
+<p style="margin:0 0 8px">Leaders across the full market at the current size (0.2% deep, 0.1% medium), 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown, positions marked to market daily, every fill taken in time order while there is room. Each of 1,000 runs draws the expectancy from a month block resample of the leader trades.</p>
 <div class="scroll"><table><tbody>
-<tr><td>Median yearly return</td><td class="num">59%</td></tr>
-<tr><td>Median maximum drawdown</td><td class="num">14%</td></tr>
-<tr><td>Trades per year</td><td class="num">about 235</td></tr>
-<tr><td>Days with no open position</td><td class="num">about 54%</td></tr>
+<tr><td>Median yearly growth</td><td class="num">43%</td></tr>
+<tr><td>Yearly growth, 10th percentile</td><td class="num">10%</td></tr>
+<tr><td>Maximum drawdown, median / 90th percentile</td><td class="num">11% / 16%</td></tr>
+<tr><td>Chance of a drawdown above 18%</td><td class="num">6.7%</td></tr>
+<tr><td>Chance of losing money over the 2.5 years</td><td class="num">2.8%</td></tr>
+<tr><td>Fills per year</td><td class="num">about 430</td></tr>
 </tbody></table></div>
-<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The simulator books a trade only when it is fully closed and does not mark open positions to market, so the drawdown figure is too low. Treat these numbers as a comparison between sizing rules, not as a forecast.</p></div>
+<p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The rule behind the size and the full table by base risk are in Step 4 of the rules tab. The sample's rules were chosen after seeing the data, which the resampling does not capture, and every run shares one market history, so treat these as upper bounds. Margin interest is not charged.</p></div>
 <div class="panel" style="margin-top:14px"><h3>How much to trust these numbers</h3>
-<p style="margin:0">The entry pattern, the location filter, the exit, the leaders cut and the depth sizing were all chosen after looking at this sample, so every figure here is optimistic. Two tests decide whether the edge is real. The cross section holdout (ADR 0006) uses 4,696 symbol months never used in research; its data finishes downloading around Oct 1, 2026, and each test runs once. The forward test (ADR 0005) reports around April 2027.</p></div>
+<p style="margin:0">The entry pattern, the location filter, the exit, the leaders cut and the depth sizing were all chosen after looking at this sample, so every figure here is optimistic. Two tests decide whether the edge is real. The cross section holdout (ADR 0006) uses 4,696 symbol months never used in research; its data finishes downloading around Oct 3, 2026, and each test runs once. The forward test (ADR 0005) reports around April 2027.</p></div>
 
 </div>
 <div id="tab-book" hidden>
 <h2>Model book, 100 winning pivots</h2>
 <p class="sec-intro">Every trade comes from real 1 minute data from Mar 2024 to Sep 2026, and each one meets all the current rules (the 54 trades from names that are not leaders fail only the RS rule). RS top 5%, prior close no more than 0.7 ATR above the 21 EMA, a break of the first strong green bar after 3 or more red 30 minute bars, stop under 60% ADR, and pullback depth of at least 0.4 daily ATR. The top chart is the 30 minute entry and the bottom chart is the daily exit. R is the simulated result under the rules (half trimmed plus the remaining half), not the best exit picked in hindsight.</p>
-<div class="panel" style="margin:14px 0 4px"><p style="margin:0;font-size:13.5px;color:var(--muted)"><strong style="color:var(--ink)">How these were picked.</strong> There are 131 leader trades that fit the current rules, and only 46 of them made money. All 46 come first, sorted by R from high to low. 26 made 2R or more, 9 made 1R to 2R, and 11 made less than 1R. To reach 100, the other 54 come from RS top 20% names that are not leaders, with every other rule the same, taking the 54 best (all above +4.2R). Under the current rules these names are not traded and are here only to show more patterns. Under the new rules the big shallow pullback winners (CEG +20.9R, STX +15.7R, CAMT +11.9R, ESLT, TER, and two INSM trades) are not here because they are skipped. Looking only at winners makes the win rate look better than it is. About 65% of leader trades that fit the rules lose money, most of them about 1R. The 54 trades from names that are not leaders are the best picked out of 936, so they are even less typical.</p></div>
+<div class="panel" style="margin:14px 0 4px"><p style="margin:0;font-size:13.5px;color:var(--muted)"><strong style="color:var(--ink)">How these were picked.</strong> These 100 were picked on Sep 27 from the sample of that day (old 10 session hold, 131 leader trades); the statistics tab is current, and the sizes on the charts follow the Sep 29 rule (0.2% and 0.1%). At the time there were 131 leader trades that fit the rules, and only 46 of them made money. All 46 come first, sorted by R from high to low. 26 made 2R or more, 9 made 1R to 2R, and 11 made less than 1R. To reach 100, the other 54 come from RS top 20% names that are not leaders, with every other rule the same, taking the 54 best (all above +4.2R). Under the current rules these names are not traded and are here only to show more patterns. Under the new rules the big shallow pullback winners (CEG +20.9R, STX +15.7R, CAMT +11.9R, ESLT, TER, and two INSM trades) are not here because they are skipped. Looking only at winners makes the win rate look better than it is. About 65% of leader trades that fit the rules lose money, most of them about 1R. The 54 trades from names that are not leaders are the best picked out of 936, so they are even less typical.</p></div>
 <div class="filters" id="book-filter">
   <button data-g="all" aria-pressed="true">All 100</button>
   <button data-g="lead" aria-pressed="false">Leaders 46</button>
@@ -388,7 +410,7 @@ function card(parent,title,chip,chipCls,caption){
 }
 
 // rules strip
-const RULES=[["Universe","Leaders only, RS top 5%. Close > 50 day MA > 200 day MA, 200 day MA rising, within 10% of the 52 week high."],["Location","Prior close no more than 0.7 daily ATR above the 21 EMA."],["Entry","After 3 or more red bars in a row on the 30 minute chart (starting any time, overnight counts), the first green bar closing in its upper third is the pivot. Buy the break of its high + 1 tick."],["Stop","Pattern low minus 1 tick, never moved after entry. Pass on the pivot if the stop distance is ≥ 60% of ADR20."],["Exit","Close more than 3 ATR above the 21 EMA, sell half at the next open. Close below the 10 EMA, sell the rest at the next open."],["Size","By pullback depth (first red bar high to the lowest red bar low, in daily ATR). At ≥ 0.7 risk 0.4%, at 0.4 to 0.7 risk 0.2%, under 0.4 skip. Total risk 3%, deep pullbacks first when full. Halve everything after an 8% drawdown."]];
+const RULES=[["Universe","Leaders only, RS top 5%. Close > 50 day MA > 200 day MA, 200 day MA rising, within 10% of the 52 week high."],["Location","Prior close no more than 0.7 daily ATR above the 21 EMA."],["Entry","After 3 or more red bars in a row on the 30 minute chart (starting any time, overnight counts), the first green bar closing in its upper third is the pivot. Buy the break of its high + 1 tick."],["Stop","Pattern low minus 1 tick, never moved after entry. Pass on the pivot if the stop distance is ≥ 60% of ADR20."],["Exit","Close more than 3 ATR above the 21 EMA, sell half at the next open. Close below the 10 EMA, sell the rest at the next open."],["Size","By pullback depth (first red bar high to the lowest red bar low, in daily ATR). At ≥ 0.7 risk 0.2%, at 0.4 to 0.7 risk 0.1%, under 0.4 skip. Total risk 3%, deep pullbacks first when full. Halve everything after an 8% drawdown."]];
 document.getElementById("rules").innerHTML=RULES.map((r,i)=>`<div class="rule"><b>${String(i+1).padStart(2,"0")}</b><h3>${r[0]}</h3><p>${r[1]}</p></div>`).join("");
 
 // ---------- setup (daily) ----------
@@ -465,7 +487,7 @@ entryChart("hammer","Red bars with long lower wicks also count","Take","go",
 entryChart("tiny","Tiny red bars, the pattern counts but is too shallow","Skip","wn",
  `Each of the 3 red bars drops only a few cents, close to flat. As long as each closes below its open it is a pivot pattern. But the whole run fell less than 0.4 daily ATR, a shallow pullback. The historical win rate is only 15% to 19%, so the sizing rule skips it, and by default the indicator does not draw a P.`,G);
 entryChart("five","5 or more red bars, still just the first strong green bar","Take","go",
- `The red bars can run long, and everything after the 3rd is the same pattern. The strong green 6th bar is the pivot, with the stop at the lowest point of the whole run. Deeper is better. When the drop from the first red bar high to the lowest red bar low is more than 0.7 daily ATR, leaders win 43% of the time, sized at 0.4% per trade.`,G);
+ `The red bars can run long, and everything after the 3rd is the same pattern. The strong green 6th bar is the pivot, with the stop at the lowest point of the whole run. Deeper is better. When the drop from the first red bar high to the lowest red bar low is more than 0.7 daily ATR, leaders win 37% of the time (24% for medium pullbacks), sized at 0.2% per trade.`,G);
 entryChart("redtop","A red bar closing in its upper third is still red","Take","go",
  `The 4th bar closes near the top of its range but below its open, so it is the 4th red bar, not a pivot. A pivot must be green. The next green bar closes in its upper third and is the pivot.`,G);
 entryChart("pivotlow","The pivot bar makes a new low, the stop goes lower","Take","go",
@@ -544,8 +566,8 @@ exitChart("trimfade","Sharp drop after the trim, half already banked","go",`Half
 
 // ---------- sizing ----------
 (function(){
-  const acct=100000,risk=0.004,entry=+(std.high+0.01).toFixed(2),stop=+(std.low-0.01).toFixed(2),R=entry-stop,sh=Math.floor(acct*risk/R);
-  const rows=[["Account",acct.toLocaleString("en-US")+" USD"],["Risk per trade 0.4% (deep pullback)",(acct*risk).toLocaleString("en-US")+" USD"],["Trigger",f2(entry)],["Stop",f2(stop)],["1R (risk per share)",f2(R)],["Shares = 400 ÷ "+f2(R),sh+" shares"],["Position value",Math.round(sh*entry).toLocaleString("en-US")+" USD ("+Math.round(sh*entry/acct*100)+"% of account)"],["Loss if stopped",Math.round(sh*R)+" USD = 1R"],["Medium pullback (0.2%)",Math.floor(acct*0.002/R)+" shares, about 200 USD lost if stopped"]];
+  const acct=100000,risk=0.002,entry=+(std.high+0.01).toFixed(2),stop=+(std.low-0.01).toFixed(2),R=entry-stop,sh=Math.floor(acct*risk/R);
+  const rows=[["Account",acct.toLocaleString("en-US")+" USD"],["Risk per trade 0.2% (deep pullback)",(acct*risk).toLocaleString("en-US")+" USD"],["Trigger",f2(entry)],["Stop",f2(stop)],["1R (risk per share)",f2(R)],["Shares = 200 ÷ "+f2(R),sh+" shares"],["Position value",Math.round(sh*entry).toLocaleString("en-US")+" USD ("+Math.round(sh*entry/acct*100)+"% of account)"],["Loss if stopped",Math.round(sh*R)+" USD = 1R"],["Medium pullback (0.1%)",Math.floor(acct*0.001/R)+" shares, about 100 USD lost if stopped"]];
   document.getElementById("calc").innerHTML=rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
 })();
 
@@ -602,13 +624,13 @@ exitChart("trimfade","Sharp drop after the trim, half already banked","go",`Half
     const trimmed=iTrim>0&&iTrim<=iExit;
     const BP={"Prior day low swept":"the prior day low was swept","Reached weekly 8 EMA":"the low reached the weekly 8 EMA"};
     let story=`${t.n_red} red bars `+(over?"ran overnight from the prior afternoon":fromOpen?"started at the open":"formed midday")+(t.wait?`, and the strong green bar came after ${t.wait} wait bar${t.wait>1?"s":""}`:" and were followed right away by a strong green bar")+`. The break filled ${nextDay?"the next day":"the same day"}. 1R = ${f2(risk)} (${rp}% of price). `;
-    story+=`Pullback depth ${t.depth.toFixed(2)} daily ATR, ${t.depth>=0.7?"a deep pullback at 0.4% size":"a medium pullback at 0.2% size"}. `+(t.bonus.length?`For reference, ${t.bonus.map(b=>BP[b]||b).join(" and ")} (bonus factor${t.bonus.length>1?"s":""}). `:"");
+    story+=`Pullback depth ${t.depth.toFixed(2)} daily ATR, ${t.depth>=0.7?"a deep pullback at 0.2% size":"a medium pullback at 0.1% size"}. `+(t.bonus.length?`For reference, ${t.bonus.map(b=>BP[b]||b).join(" and ")} (bonus factor${t.bonus.length>1?"s":""}). `:"");
     if(trimmed)story+=`On ${md(D.trim)} the close was more than 3 ATR above the 21 EMA, so half was sold at the next open. `;
     if(t.reason==="signal")story+=`On ${md(D.d[iExit-1])} it closed below the 10 EMA, and ${trimmed?"the remaining half":"the whole position"} was sold at the open on ${md(t.exit_day)}. `;
     else if(t.reason==="stop")story+=trimmed?`The remaining half gapped through the stop on ${md(t.exit_day)} and exited at the open. The half sold earlier had already locked in most of the profit. `:`It hit the stop on ${md(t.exit_day)}, a loss of about 1R. `;
     else if(t.reason==="truncated")story+=`Still held when the data ends on ${md(t.exit_day)}, valued at the last close. `;
     story+=`Held ${t.hold} trading days.`+(t.lead?"":" RS was not in the top 5%, so under the current leaders only rule this trade is skipped. It is here only to show the pattern.");
-    const chips=(t.lead?`<span class="chip go">Leader</span>`:`<span class="chip wn">Not a leader, not traded now</span>`)+`<span class="chip info">RS ${t.rs}</span><span class="chip ${t.depth>=0.7?"go":"info"}">Depth ${t.depth.toFixed(2)} ATR · ${t.depth>=0.7?"0.4%":"0.2%"}</span><span class="chip ${t.adr>=60?"wn":"info"}">Stop ${t.adr}% ADR${t.adr>=60?", skipped under new rules":""}</span>`+t.bonus.map(b=>`<span class="chip go">${b}</span>`).join("")+(t.period==="lk"?`<span class="chip wn">Locked period</span>`:"");
+    const chips=(t.lead?`<span class="chip go">Leader</span>`:`<span class="chip wn">Not a leader, not traded now</span>`)+`<span class="chip info">RS ${t.rs}</span><span class="chip ${t.depth>=0.7?"go":"info"}">Depth ${t.depth.toFixed(2)} ATR · ${t.depth>=0.7?"0.2%":"0.1%"}</span><span class="chip ${t.adr>=60?"wn":"info"}">Stop ${t.adr}% ADR${t.adr>=60?", skipped under new rules":""}</span>`+t.bonus.map(b=>`<span class="chip go">${b}</span>`).join("")+(t.period==="lk"?`<span class="chip wn">Locked period</span>`:"");
     f.innerHTML=`<div class="fh"><h3>${t.sym} · ${md(t.pivot_day)}, ${yr(t.pivot_day)}</h3><span class="chip ${cls}">${rtxt}</span></div><div class="meta">${chips}</div>
       <div class="two"><div><p class="lbl">30 minute entry</p><div class="scroll"><svg class="ch"></svg></div></div><div><p class="lbl">Daily exit</p><div class="scroll"><svg class="ch"></svg></div></div></div><figcaption>${story}</figcaption>`;
     g.appendChild(f);
