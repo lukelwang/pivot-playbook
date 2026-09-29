@@ -151,7 +151,7 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 </div>
 
 <h2>TradingView indicator Pivot30</h2>
-<p class="sec-intro">The entry rules are built into a Pine v6 indicator (~/code/pivot30.pine, v2.9, passed review by both the advisor and Codex). It runs only on a standard 30 minute chart and targets US stocks (using the SPY trading calendar). The indicator handles entry signals only. Strict mode is the default. All of the prior day's daily conditions (price, dollar volume, trend, 52 week high, distance from the 21 EMA) must pass before it draws a P or places an order. Each condition can be unchecked in the settings to loosen the filter. Screen for RS top 5% yourself (TradingView has no market wide RS ranking).</p>
+<p class="sec-intro">The entry rules are built into a Pine v6 indicator (~/code/pivot30.pine, v2.10, passed review by both the advisor and Codex). It runs only on a standard 30 minute chart and targets US stocks (using the SPY trading calendar). The indicator handles entry signals only. Strict mode is the default. All of the prior day's daily conditions (price, dollar volume, trend, 52 week high, distance from the 21 EMA) must pass before it draws a P or places an order. Each condition can be unchecked in the settings to loosen the filter. Screen for RS top 5% yourself (TradingView has no market wide RS ranking).</p>
 <div class="two">
   <div class="panel"><h3>Chart markers</h3><table><tbody>
     <tr><td class="num">?</td><td>The live intraday bar is about to become a pivot (green and closing high). It may disappear before the bar closes</td></tr>
@@ -167,7 +167,6 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
   </tbody></table></div>
   <div class="panel"><h3>How to use it</h3><ul class="plain">
     <li>Hover over a P to see the number of red bars, trigger, stop, 1R as a percent of price and of ADR20, distance from the 21 EMA in ATR, pullback depth and suggested size, bonus factors (for reference only), and whether the daily conditions PASS or FAIL that day.</li>
-    <li>The indicator tooltip still suggests the sizes used before Sep 29 (0.4% and 0.2%). Until the indicator is updated, this page decides: deep 0.2%, medium 0.1%.</li>
     <li>The "Size by pullback depth" setting is on by default. Turn it off to go back to the old bonus tiers, where P+ means a bonus factor is present (0.4%) and P means none (0.1%).</li>
     <li>Pivots with a stop at 60% of ADR20 or more are hidden by default (you can turn that off to show them as a gray P wide).</li>
     <li>The moving average filter (off by default) lets you check 21EMA, weekly 8EMA, 8EMA and 5EMA. Only pivots whose pattern low tags a checked average (within 0.25 ATR or below it) are shown. Checking several works as "or", so more checks means looser. In the backtest only 21EMA alone made a difference, +0.32R per trade when tagged versus negative 0.37R when not (found after the fact, pending holdout data).</li>
