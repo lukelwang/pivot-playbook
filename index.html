@@ -220,7 +220,7 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <div class="panel" style="margin-top:18px" id="bonus-table"></div>
 
 <h2>Step 4. Position size</h2>
-<p class="sec-intro">On a deep pullback a 1R loss equals 0.2% of the account, on a medium pullback 0.1%, and shallow pullbacks are skipped (cut on Sep 29 from 0.4% and 0.2%). Total open risk stays at or under 3%. After an 8% drawdown from the account peak, all risk per trade is halved until a new high. The 0.2% comes from a stated rule: allowing for the error in the expectancy itself, the chance of a maximum drawdown above 18% must be at most 10%, and the base risk is the largest value that meets it (table below).</p>
+<p class="sec-intro">On a deep pullback a 1R loss equals 0.2% of the account, on a medium pullback 0.1%, and shallow pullbacks are skipped (cut on Sep 29 from 0.4% and 0.2%). Total open risk stays at or under 3%. After an 8% drawdown from the account peak, all risk per trade is halved until a new high. The base risk comes from a stated rule: allowing for the error in the expectancy itself, the chance of a maximum drawdown above 18% must be at most 10% (table below). The largest value that meets it is 0.25%; the page uses 0.2%, for the reasons under the table.</p>
 <div class="two">
   <div class="panel">
     <h3>Working out the share count</h3>
@@ -230,26 +230,26 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
   <figure>
     <div class="fh"><h3>Cutting size in a drawdown</h3><span class="chip info">Simulated</span></div>
     <div class="scroll"><svg class="ch" id="dd" viewBox="0 0 680 260" role="img" aria-label="Account equity and risk tier illustration"></svg></div>
-    <figcaption>Once equity is 8% below its peak, all risk per trade is halved (0.2% becomes 0.1%, 0.1% becomes 0.05%). Size returns to normal once equity gets back to the prior peak. This is an illustrative curve, not a backtest result. In the account simulation with daily marks (0.4% per trade, cash account), the rule barely changed growth (median 43% versus 42% a year) and cut the 90th percentile drawdown from 23% to 17%.</figcaption>
+    <figcaption>Once equity is 8% below its peak, all risk per trade is halved (0.2% becomes 0.1%, 0.1% becomes 0.05%). Size returns to normal once equity gets back to the prior peak. This is an illustrative curve, not a backtest result. In the account simulation with daily marks (0.2% per trade, 2x margin), the rule trades growth for drawdown: median yearly growth falls from 45% to 37%, the 90th percentile drawdown from 23% to 15%, and the chance of a drawdown above 18% from 21% to 4%.</figcaption>
   </figure>
 </div>
 
 <div class="panel" style="margin-top:18px">
   <h3>How the base risk was set</h3>
-  <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">Rule: the chance of a maximum drawdown above 18% is at most 10%. Each run first resamples the leader trades in whole calendar months to draw an expectancy (median +0.65R, 10th percentile +0.23R), then simulates a full market account at that expectancy: 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown, leaders only, every fill taken in time order while there is room (about 430 a year), positions marked to market daily. 1,000 runs per base risk.</p>
+  <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">Rule: the chance of a maximum drawdown above 18% is at most 10%. Each run first resamples the leader trades in whole calendar months to draw an expectancy (median +0.65R, 10th percentile +0.23R), then simulates a full market account at that expectancy: 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown until a new high, leaders only, every fill taken in time order while there is room (about 430 a year), positions marked to market daily. 1,000 runs per base risk.</p>
   <div class="scroll"><table>
     <thead><tr><th>Base risk (deep, medium half)</th><th>Median yearly growth</th><th>Growth, 10th percentile</th><th>Max drawdown, 90th percentile</th><th>Chance of a drawdown above 18%</th></tr></thead>
     <tbody>
-      <tr><td>0.10%</td><td class="num">24%</td><td class="num">5%</td><td class="num">10%</td><td class="num">0.1%</td></tr>
-      <tr><td>0.15%</td><td class="num">35%</td><td class="num">7%</td><td class="num">14%</td><td class="num">1.6%</td></tr>
-      <tr><td><strong>0.20% (current)</strong></td><td class="num">43%</td><td class="num">10%</td><td class="num">16%</td><td class="num">6.7%</td></tr>
-      <tr><td>0.25%</td><td class="num">50%</td><td class="num">11%</td><td class="num">19%</td><td class="num">12.6%</td></tr>
-      <tr><td>0.30%</td><td class="num">57%</td><td class="num">13%</td><td class="num">21%</td><td class="num">20.4%</td></tr>
-      <tr><td>0.40% (before)</td><td class="num">63%</td><td class="num">10%</td><td class="num">25%</td><td class="num">37.0%</td></tr>
-      <tr><td>0.50%</td><td class="num">68%</td><td class="num">9%</td><td class="num">29%</td><td class="num">50.5%</td></tr>
+      <tr><td>0.10%</td><td class="num">24%</td><td class="num">2%</td><td class="num">10%</td><td class="num">0.0%</td></tr>
+      <tr><td>0.15%</td><td class="num">32%</td><td class="num">3%</td><td class="num">13%</td><td class="num">1.3%</td></tr>
+      <tr><td><strong>0.20% (current)</strong></td><td class="num">37%</td><td class="num">6%</td><td class="num">15%</td><td class="num">4.0%</td></tr>
+      <tr><td>0.25%</td><td class="num">44%</td><td class="num">7%</td><td class="num">18%</td><td class="num">8.5%</td></tr>
+      <tr><td>0.30%</td><td class="num">51%</td><td class="num">8%</td><td class="num">20%</td><td class="num">16.6%</td></tr>
+      <tr><td>0.40% (before)</td><td class="num">58%</td><td class="num">9%</td><td class="num">24%</td><td class="num">34.1%</td></tr>
+      <tr><td>0.50%</td><td class="num">62%</td><td class="num">9%</td><td class="num">29%</td><td class="num">46.6%</td></tr>
     </tbody>
   </table></div>
-  <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The largest base risk that meets the rule is 0.2%. Up to 0.3% the bad case (10th percentile growth) still improves a little (10% to 13%), but the chance of a drawdown above 18% rises to about 20%; above 0.3% the bad case gets worse and only the drawdown grows. 18% is the drawdown tolerance this playbook uses; with your own number, read your row off the table. Limits: the rules were picked after seeing the data, and that bias is not in the resampling, so 0.2% is an upper bound; every run shares one 2.5 year market history; margin interest is not charged (about 0.5 to 1 point a year). In a cash account (no leverage), at the in sample expectancy, 0.2% gives about 36% median yearly growth, and about 21% of fills do not fit for lack of buying power. After the holdout test H1 reports, the same rule is rerun.</p>
+  <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The largest base risk that meets the rule is 0.25% (8.5%), but the page uses 0.2%: the rule gives an upper bound, 0.25% sits close to the 10% line, and both holdout tests rerun the same rule within two weeks, one of them including the 2022 bear market. From 0.2% to 0.5% the bad case (10th percentile growth) only rises from 6% to 9%, while the chance of a drawdown above 18% rises from 4% to 47%. 18% is the drawdown tolerance this playbook uses; with your own number, read your row off the table. Limits: the rules were picked after seeing the data, and that bias is not in the resampling, so every number in the table leans optimistic; every run shares one 2.5 year market history; margin interest is not charged (about 0.5 to 1 point a year). In a cash account (no leverage), at the in sample expectancy, 0.2% gives about 34% median yearly growth, and about 21% of fills do not fit for lack of buying power. After both holdout tests (ADR 0006, ADR 0007) report, the same rule is rerun. Corrected on the night of Sep 29: the first simulations ended the halving once the drawdown was back under 8%, not at a new high as the rule says; they gave 6.7% and a 43% median at 0.2%. The table is rerun under the written rule.</p>
 </div>
 
 <h2>Numbers and discipline</h2>
@@ -330,13 +330,13 @@ ul.plain{margin:0;padding-left:1.2em} ul.plain li{margin:3px 0}
 <tr><td>Locked, Mar to Sep 2026</td><td class="num">70</td><td class="num">23%</td><td class="num">5.56</td><td class="num">1.65</td><td class="num">+0.54R</td></tr></tbody></table></div></div>
 </div>
 <div class="panel" style="margin-top:14px"><h3>Portfolio simulation</h3>
-<p style="margin:0 0 8px">Leaders across the full market at the current size (0.2% deep, 0.1% medium), 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown, positions marked to market daily, every fill taken in time order while there is room. Each of 1,000 runs draws the expectancy from a month block resample of the leader trades.</p>
+<p style="margin:0 0 8px">Leaders across the full market at the current size (0.2% deep, 0.1% medium), 2x margin, 3% cap on total open risk, risk halved after an 8% drawdown until a new high, positions marked to market daily, every fill taken in time order while there is room. Each of 1,000 runs draws the expectancy from a month block resample of the leader trades.</p>
 <div class="scroll"><table><tbody>
-<tr><td>Median yearly growth</td><td class="num">43%</td></tr>
-<tr><td>Yearly growth, 10th percentile</td><td class="num">10%</td></tr>
-<tr><td>Maximum drawdown, median / 90th percentile</td><td class="num">11% / 16%</td></tr>
-<tr><td>Chance of a drawdown above 18%</td><td class="num">6.7%</td></tr>
-<tr><td>Chance of losing money over the 2.5 years</td><td class="num">2.8%</td></tr>
+<tr><td>Median yearly growth</td><td class="num">37%</td></tr>
+<tr><td>Yearly growth, 10th percentile</td><td class="num">6%</td></tr>
+<tr><td>Maximum drawdown, median / 90th percentile</td><td class="num">10% / 15%</td></tr>
+<tr><td>Chance of a drawdown above 18%</td><td class="num">4.0%</td></tr>
+<tr><td>Chance of losing money over the 2.5 years</td><td class="num">4.4%</td></tr>
 <tr><td>Fills per year</td><td class="num">about 430</td></tr>
 </tbody></table></div>
 <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">The rule behind the size and the full table by base risk are in Step 4 of the rules tab. The sample's rules were chosen after seeing the data, which the resampling does not capture, and every run shares one market history, so treat these as upper bounds. Margin interest is not charged.</p></div>
